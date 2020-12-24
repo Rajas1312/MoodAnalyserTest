@@ -2,19 +2,28 @@ package com.dummytesting;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class MoodAnalyserTest {
     @Test
-    public void givenMood_MoodAnalyser_ShouldReturnSad() {
-        MoodAnalyser moodAnalyser=new MoodAnalyser("This is a Sad message");
-        String mood = moodAnalyser.analyseMood();
-        Assert.assertEquals("Sad",mood);
+    public void givenMood_WhenEmpty_ShouldReturnEmpty() {
+        MoodAnalyser moodAnalyser=new MoodAnalyser();
+        try {
+            moodAnalyser.analyseMood("");
+        } catch (MoodAnalyserException e) {
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.EMPTY_TYPE,e.type);
+        }
+
     }
 
     @Test
-    public void givenMood_WhenAnyMood_ShouldReturnHappy() {
-        MoodAnalyser moodAnalyser=new MoodAnalyser(null);
-        String mood =moodAnalyser.analyseMood();
-        Assert.assertEquals("Happy",mood);
+    public void givenMood_WhenNull_ShouldReturnNull() {
+        MoodAnalyser moodAnalyser=new MoodAnalyser();
+        try {
+            moodAnalyser.analyseMood(null);
+        } catch (MoodAnalyserException e) {
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.NULL_TYPE,e.type);
+        }
+
     }
 }
